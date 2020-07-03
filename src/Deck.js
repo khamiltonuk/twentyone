@@ -23,11 +23,10 @@ export default function CreateDeck() {
       let card = {};
       card.suit = suits[i];
       card.value = values[j];
-
-      card.numericValue = j;
+      card.numericValue = j + 1;
 
       if (card.value === "Ace") {
-        card.numericValue = 1;
+        card.numericValue = 11;
       }
 
       if (
@@ -68,4 +67,10 @@ export function shuffleDeck(array) {
 export function DealTwoCards(deck) {
   const [topCard, secondCard, ...rest] = deck;
   return [topCard, secondCard, rest];
+}
+
+export function dealCards(deck, amountOfCards) {
+  const cardsToDeal = deck.slice(0, amountOfCards);
+  const restOfDeck = deck.slice(amountOfCards);
+  return [...cardsToDeal, restOfDeck];
 }
