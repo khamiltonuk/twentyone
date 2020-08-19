@@ -7,6 +7,19 @@
   pointer-events: none;
 }
 
+.card {
+  background-image: url("./assets/playingCards.png");
+  width: 140px;
+  height: 190px;
+}
+
+.face-down-card {
+  background-image: url("./assets/face-down-card.png");
+  width: 140px;
+  height: 190px;
+  background-size: 140px 190px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -14,7 +27,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: green;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
