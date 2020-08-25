@@ -3,16 +3,12 @@ import "./App.css";
 import Hand from "./Hand";
 import startGame, { gameReducer } from "./Game";
 
-// Todo
-// [ ]  stand game state
-// [ ]  React UI tests
-
 function App() {
   const [state, dispatch] = useReducer(gameReducer, startGame());
 
   useEffect(() => {
     dispatch({ type: "checkScore" });
-  }, [state.player.score]);
+  }, [state.player.score, state.dealer.score]);
 
   const isGameOver =
     state.gameState === "WIN" ||
@@ -25,33 +21,34 @@ function App() {
     return (
       <div className="App">
         <button onClick={() => dispatch({ type: "initialDeal" })}>
-          start game
+          Start game
         </button>
       </div>
     );
   }
 
+  const showCards = state.gameState === "DEALERS_TURN" || isGameOver;
+
   return (
     <div className="App">
-      <Hand player={state.dealer} dealer />
       <p>Dealer's Hand:</p>
+      {showCards && <p>Dealer score: {state.dealer.score}</p>}
+      <Hand player={state.dealer} dealer isDealersTurn={showCards} />
+
       <Hand player={state.player} />
       <p>Your score: {state.player.score}</p>
 
-      {!isGameOver && hasGameStarted && (
+      {!showCards && (
         <>
           <button onClick={() => dispatch({ type: "dealPlayerCard" })}>
             Hit me
           </button>
+          <button onClick={() => dispatch({ type: "stand" })}>stand</button>
         </>
       )}
-
-      {hasGameStarted && !isGameOver && (
-        <button onClick={() => dispatch({ type: "stand" })}>stand</button>
-      )}
-      {state.gameState === "WIN" && <p>you have won </p>}
-      {state.gameState === "LOSE" && <p>you have lost </p>}
-      {state.gameState === "DRAW" && <p>this has been a job</p>}
+      {state.gameState === "WIN" && <p>You have won </p>}
+      {state.gameState === "LOSE" && <p>You have lost </p>}
+      {state.gameState === "DRAW" && <p>This has been a job</p>}
       {isGameOver && (
         <button onClick={() => dispatch({ type: "startNewGame" })}>
           Play again

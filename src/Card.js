@@ -14,7 +14,9 @@ function Card({ value, suit, faceDown }) {
     <div
       className="card"
       style={{ backgroundPosition: `-${position.x}px -${position.y}px` }}
-    >{`${value} ${suit}`}</div>
+    >
+      <div className="visibility-hidden">{`${value} ${suit}`}</div>
+    </div>
   );
 }
 

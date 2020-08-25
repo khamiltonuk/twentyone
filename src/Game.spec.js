@@ -87,7 +87,7 @@ describe("GameState", () => {
       const dealState = gameReducer(initialState, action);
 
       // expect
-      expect(dealState.dealer.score).not.toEqual(0);
+      expect(dealState.dealer.score).toEqual(0);
       expect(dealState.player.score).not.toEqual(0);
     });
 
@@ -225,6 +225,22 @@ describe("GameState", () => {
         const dealState = gameReducer(updatedState, action);
 
         expect(dealState.gameState).toEqual("WIN");
+      });
+    });
+
+    describe("Stand", () => {
+      test("should change the game state to dealer's turn", () => {
+        // setup
+        const initialState = startGame();
+
+        // act
+        const action = {
+          type: "stand",
+        };
+        const dealState = gameReducer(initialState, action);
+
+        // assert
+        expect(dealState.gameState).toEqual("DEALERS_TURN");
       });
     });
 

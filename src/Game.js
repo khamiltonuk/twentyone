@@ -40,7 +40,7 @@ export function gameReducer(state, action) {
         gameState: "INPLAY",
         dealer: {
           ...state.dealer,
-          score: findScore(newDealerHand),
+          score: 0,
           hand: newDealerHand,
         },
         player: {
@@ -75,6 +75,24 @@ export function gameReducer(state, action) {
         newGameState = "DRAW";
       }
 
+      if (state.gameState === "DEALERS_TURN") {
+        if (playerScore > dealerScore) {
+          newGameState = "WIN";
+        }
+
+        if (dealerScore === playerScore) {
+          newGameState = "DRAW";
+        }
+
+        if (dealerScore > playerScore) {
+          newGameState = "LOSE";
+        }
+
+        if (dealerScore > 21) {
+          newGameState = "WIN";
+        }
+      }
+
       return {
         ...state,
         gameState: newGameState,
@@ -96,7 +114,33 @@ export function gameReducer(state, action) {
       return startGame();
 
     case "stand":
-      return;
+      let score = findScore(state.dealer.hand);
+      let hand = state.dealer.hand;
+      let deck = state.deck;
+
+      function dealersTurn() {
+        while (score < 17) {
+          const [firstCard, remainingCards] = dealCards(deck, 1);
+          hand = [firstCard, ...hand];
+          deck = remainingCards;
+          score = findScore(hand);
+        }
+
+        return [hand, deck];
+      }
+
+      const [dealersNewHand, remainingDeck] = dealersTurn();
+
+      return {
+        ...state,
+        deck: remainingDeck,
+        gameState: "DEALERS_TURN",
+        dealer: {
+          ...state.dealer,
+          score: findScore(dealersNewHand),
+          hand: dealersNewHand,
+        },
+      };
 
     default:
       throw new Error();

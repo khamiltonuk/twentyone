@@ -1,13 +1,13 @@
 import React from "react";
 import Card from "./Card";
 
-function Hand({ player, dealer = false }) {
+function Hand({ player, isDealersTurn, dealer }) {
   return (
-    <div style={{ display: "flex" }}>
+    <div className="Hand">
       {player.hand.map((card, index) => {
         return (
           <Card
-            faceDown={dealer && index > 0}
+            faceDown={dealer && !isDealersTurn && index > 0}
             suit={card.suit}
             value={card.value}
             key={`${card.suit}-${card.value}`}

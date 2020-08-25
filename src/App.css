@@ -2,6 +2,8 @@
   background-image: url("./assets/playingCards.png");
   width: 140px;
   height: 190px;
+  margin-right: 2px;
+  border-radius: 7px;
 }
 
 .face-down-card {
@@ -9,6 +11,7 @@
   width: 140px;
   height: 190px;
   background-size: 140px 190px;
+  border-radius: 7px;
 }
 
 .App {
@@ -21,4 +24,30 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.visibility-hidden {
+  position: absolute !important; /* Outside the DOM flow */
+  height: 1px;
+  width: 1px; /* Nearly collapsed */
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px); /* IE 7+ only support clip without commas */
+  clip: rect(1px, 1px, 1px, 1px); /* All other browsers */
+}
+
+button {
+  padding: 20px 40px;
+  border: 0;
+  background: #243177;
+  color: #fff;
+  text-transform: uppercase;
+  border-radius: 7px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.Hand {
+  display: flex;
 }
