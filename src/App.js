@@ -21,38 +21,42 @@ function App() {
 
   const hasGameStarted = state.gameState !== "PREDEAL";
 
+  if (!hasGameStarted) {
+    return (
+      <div className="App">
+        <button onClick={() => dispatch({ type: "initialDeal" })}>
+          start game
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <Hand player={state.dealer} dealer />
-        <p>Dealer's Hand:</p>
-        <Hand player={state.player} />
-        <p>Your score: {state.player.score}</p>
-        {!hasGameStarted && (
-          <button onClick={() => dispatch({ type: "initialDeal" })}>
-            start game
-          </button>
-        )}
-        {!isGameOver && hasGameStarted && (
-          <>
-            <button onClick={() => dispatch({ type: "dealPlayerCard" })}>
-              Hit me
-            </button>
-          </>
-        )}
+      <Hand player={state.dealer} dealer />
+      <p>Dealer's Hand:</p>
+      <Hand player={state.player} />
+      <p>Your score: {state.player.score}</p>
 
-        {hasGameStarted && !isGameOver && (
-          <button onClick={() => dispatch({ type: "stand" })}>stand</button>
-        )}
-        {state.gameState === "WIN" && <p>you have won </p>}
-        {state.gameState === "LOSE" && <p>you have lost </p>}
-        {state.gameState === "DRAW" && <p>this has been a job</p>}
-        {isGameOver && (
-          <button onClick={() => dispatch({ type: "startNewGame" })}>
-            Play again
+      {!isGameOver && hasGameStarted && (
+        <>
+          <button onClick={() => dispatch({ type: "dealPlayerCard" })}>
+            Hit me
           </button>
-        )}
-      </header>
+        </>
+      )}
+
+      {hasGameStarted && !isGameOver && (
+        <button onClick={() => dispatch({ type: "stand" })}>stand</button>
+      )}
+      {state.gameState === "WIN" && <p>you have won </p>}
+      {state.gameState === "LOSE" && <p>you have lost </p>}
+      {state.gameState === "DRAW" && <p>this has been a job</p>}
+      {isGameOver && (
+        <button onClick={() => dispatch({ type: "startNewGame" })}>
+          Play again
+        </button>
+      )}
     </div>
   );
 }

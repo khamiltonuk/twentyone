@@ -17,7 +17,6 @@ export default function startGame() {
 }
 
 export function findScore(hand) {
-  //developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
   return hand.reduce((accumulator, card) => {
     return accumulator + card.numericValue;
   }, 0);

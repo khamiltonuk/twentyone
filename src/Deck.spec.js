@@ -1,5 +1,6 @@
 // create a single deck of playing cards
-import CreateDeck, { suits, dealCards } from "./Deck";
+import { suits } from "./Constants";
+import CreateDeck, { dealCards } from "./Deck";
 
 function countSuits(array, suit) {
   const Hearts = array.filter((card) => card.suit === suit);
@@ -61,11 +62,17 @@ describe("CreateDeck", () => {
 });
 
 describe("dealCards", () => {
-  it("should deal two cards", () => {
+  it("should deal a predefined number of cards", () => {
     const deck = CreateDeck();
 
     expect(dealCards(deck, 2).length).toEqual(3);
 
     expect(dealCards(deck, 4).length).toEqual(5);
+  });
+
+  it("should retain all the cards in the pack", () => {
+    const deck = CreateDeck();
+
+    expect(dealCards(deck, 2).flat().length).toEqual(52);
   });
 });
