@@ -1,5 +1,5 @@
 // create a single deck of playing cards
-import CreateDeck, { suits, dealCards, findCardPosition } from "./Deck";
+import CreateDeck, { suits, dealCards } from "./Deck";
 
 function countSuits(array, suit) {
   const Hearts = array.filter((card) => card.suit === suit);
@@ -67,21 +67,5 @@ describe("dealCards", () => {
     expect(dealCards(deck, 2).length).toEqual(3);
 
     expect(dealCards(deck, 4).length).toEqual(5);
-  });
-});
-
-describe("sprite", () => {
-  it("should return the Ace of heart's sprite location", () => {
-    const card = {
-      suit: "Hearts",
-      value: "Ace",
-      numericValue: 11,
-    };
-
-    const spritePosition = findCardPosition(card);
-
-    expect(spritePosition).toHaveProperty("name", "HeartsAce");
-    expect(spritePosition.position).toHaveProperty("x", 140);
-    expect(spritePosition.position).toHaveProperty("y", 1330);
   });
 });

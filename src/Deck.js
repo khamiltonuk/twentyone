@@ -1,5 +1,3 @@
-import { spritesheet } from "./Sprite";
-
 export const suits = ["Hearts", "Diamonds", "Spades", "Clubs"];
 
 const values = [
@@ -71,10 +69,4 @@ export function dealCards(deck, amountOfCards) {
   const cardsToDeal = deck.slice(0, amountOfCards);
   const restOfDeck = deck.slice(amountOfCards);
   return [...cardsToDeal, restOfDeck];
-}
-
-export function findCardPosition(card) {
-  return spritesheet.find(
-    (value) => value.name === `${card.suit}${card.value}`
-  );
 }
