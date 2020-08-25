@@ -67,11 +67,6 @@ export function shuffleDeck(array) {
   return array;
 }
 
-export function DealTwoCards(deck) {
-  const [topCard, secondCard, ...rest] = deck;
-  return [topCard, secondCard, rest];
-}
-
 export function dealCards(deck, amountOfCards) {
   const cardsToDeal = deck.slice(0, amountOfCards);
   const restOfDeck = deck.slice(amountOfCards);

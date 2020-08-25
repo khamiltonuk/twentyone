@@ -1,10 +1,5 @@
 // create a single deck of playing cards
-import CreateDeck, {
-  suits,
-  DealTwoCards,
-  dealCards,
-  findCardPosition,
-} from "./Deck";
+import CreateDeck, { suits, dealCards, findCardPosition } from "./Deck";
 
 function countSuits(array, suit) {
   const Hearts = array.filter((card) => card.suit === suit);
@@ -62,15 +57,6 @@ describe("CreateDeck", () => {
     const deck = CreateDeck();
     const twos = deck.filter((card) => card.value === "2");
     expect(twos.every((twos) => twos.numericValue === 2)).toEqual(true);
-  });
-});
-
-describe("DealTwoCards", () => {
-  it("should deal two cards", () => {
-    const deck = CreateDeck();
-    expect(DealTwoCards(deck)[0]).toHaveProperty("suit");
-    expect(DealTwoCards(deck)[1]).toHaveProperty("suit");
-    expect(DealTwoCards(deck)[2].length).toEqual(50);
   });
 });
 
