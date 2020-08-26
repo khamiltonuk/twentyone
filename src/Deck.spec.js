@@ -23,26 +23,12 @@ describe("CreateDeck", () => {
     //act
     const aces = deck.filter((card) => card.value === "Ace");
 
-    /*
-    const card = {
-      value: "Ace"
-      suit: "hearts"
-      numbericValue: 11
-    }
-
-    const card = {
-      value: "2"
-      suit: "hearts"
-      numbericValue: 2
-    }
-    */
-
     // expect
     expect(aces.length).toEqual(4);
     expect(aces.every((ace) => ace.numericValue === 11)).toEqual(true);
   });
 
-  it("should return a deck where Jacks, Queens & Kings have a numericValue of 10", () => {
+  it("should return a deck where Jacks, Queens & Kings all have a numericValue of 10", () => {
     const deck = CreateDeck();
 
     const faceCards = deck.filter(
@@ -54,7 +40,7 @@ describe("CreateDeck", () => {
     expect(faceCards.every((card) => card.numericValue === 10)).toEqual(true);
   });
 
-  it("should return a deck of where cards 2 to 10 have the numeric value 2 to 10 ", () => {
+  it("should return a deck of where 2 cards have the numeric value of 2", () => {
     const deck = CreateDeck();
     const twos = deck.filter((card) => card.value === "2");
     expect(twos.every((twos) => twos.numericValue === 2)).toEqual(true);

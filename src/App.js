@@ -48,7 +48,7 @@ function App() {
       )}
       {state.gameState === "WIN" && <p>You have won </p>}
       {state.gameState === "LOSE" && <p>You have lost </p>}
-      {state.gameState === "DRAW" && <p>This has been a job</p>}
+      {state.gameState === "DRAW" && <p>It is a draw</p>}
       {isGameOver && (
         <button onClick={() => dispatch({ type: "startNewGame" })}>
           Play again

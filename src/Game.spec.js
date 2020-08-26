@@ -1,30 +1,7 @@
 import startGame, { gameReducer, findScore } from "./Game";
 import CreateDeck, { dealCards, shuffleDeck } from "./Deck";
 
-export function hasTwentyOne(score) {
-  return score === 21;
-}
-
 describe("GameState", () => {
-  describe("Dealer", () => {
-    test("should init with a score of zero", () => {
-      expect(startGame().dealer).toHaveProperty("score", 0);
-    });
-    test("should init with an empty hand", () => {
-      expect(startGame().dealer).toHaveProperty("hand", []);
-    });
-  });
-
-  describe("hasTwentyOne", () => {
-    test("should return true if a player has 21", () => {
-      expect(hasTwentyOne(21)).toEqual(true);
-    });
-
-    test("should return false if a player doesn't have 21", () => {
-      expect(hasTwentyOne(11)).toEqual(false);
-    });
-  });
-
   describe("GetScore", () => {
     test("should be able to work out the score", () => {
       const [firstCard, secondCard, thirdHand, restDeck] = dealCards(
@@ -44,6 +21,15 @@ describe("GameState", () => {
     });
   });
 
+  describe("Dealer", () => {
+    test("should init with a score of zero", () => {
+      expect(startGame().dealer).toHaveProperty("score", 0);
+    });
+    test("should init with an empty hand", () => {
+      expect(startGame().dealer).toHaveProperty("hand", []);
+    });
+  });
+
   describe("Player", () => {
     test("should init with at least one player", () => {
       expect(startGame()).toHaveProperty("player");
@@ -57,38 +43,41 @@ describe("GameState", () => {
       expect(startGame().player).toHaveProperty("hand", []);
     });
   });
+
   describe("GameReducer", () => {
-    test("should deal 2 cards to each player", () => {
-      // setup
-      const initialState = startGame();
+    describe("initialDeal", () => {
+      test("should deal 2 cards to each player", () => {
+        // setup
+        const initialState = startGame();
 
-      // act
-      const action = {
-        type: "initialDeal",
-      };
-      const dealState = gameReducer(initialState, action);
+        // act
+        const action = {
+          type: "initialDeal",
+        };
+        const dealState = gameReducer(initialState, action);
 
-      // expect
-      expect(dealState.deck).toHaveLength(48);
-      expect(dealState.dealer.hand).toHaveLength(2);
-      expect(dealState.player.hand).toHaveLength(2);
-    });
+        // expect
+        expect(dealState.deck).toHaveLength(48);
+        expect(dealState.dealer.hand).toHaveLength(2);
+        expect(dealState.player.hand).toHaveLength(2);
+      });
 
-    test("should update score", () => {
-      // setup
-      const initialState = startGame();
-      expect(initialState.dealer.score).toEqual(0);
-      expect(initialState.player.score).toEqual(0);
+      test("should update score", () => {
+        // setup
+        const initialState = startGame();
+        expect(initialState.dealer.score).toEqual(0);
+        expect(initialState.player.score).toEqual(0);
 
-      // act
-      const action = {
-        type: "initialDeal",
-      };
-      const dealState = gameReducer(initialState, action);
+        // act
+        const action = {
+          type: "initialDeal",
+        };
+        const dealState = gameReducer(initialState, action);
 
-      // expect
-      expect(dealState.dealer.score).toEqual(0);
-      expect(dealState.player.score).not.toEqual(0);
+        // expect
+        expect(dealState.dealer.score).toEqual(0);
+        expect(dealState.player.score).not.toEqual(0);
+      });
     });
 
     describe("check score", () => {
@@ -155,6 +144,30 @@ describe("GameState", () => {
         expect(dealState.gameState).toEqual("WIN");
       });
 
+      test("should be a draw if both dealer and player has 21", () => {
+        // setup
+        const initialState = startGame();
+
+        // act
+        const updatedState = {
+          ...initialState,
+          player: {
+            ...initialState.player,
+            score: 21,
+          },
+          dealer: {
+            ...initialState.dealer,
+            score: 21,
+          },
+        };
+        const action = {
+          type: "checkScore",
+        };
+        const dealState = gameReducer(updatedState, action);
+
+        expect(dealState.gameState).toEqual("DRAW");
+      });
+
       test("should check if game should continue when no winner", () => {
         // setup
         const initialState = startGame();
@@ -179,7 +192,7 @@ describe("GameState", () => {
         expect(dealState.gameState).toEqual(initialState.gameState);
       });
 
-      test("should go bust if the play gets over 21", () => {
+      test("should go bust if the player gets over 21", () => {
         // setup
         const initialState = startGame();
 
