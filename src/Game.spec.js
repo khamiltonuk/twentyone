@@ -4,7 +4,7 @@ import CreateDeck, { dealCards, shuffleDeck } from "./Deck";
 describe("GameState", () => {
   describe("GetScore", () => {
     test("should be able to work out the score", () => {
-      const [firstCard, secondCard, thirdHand, restDeck] = dealCards(
+      const [firstCard, secondCard, thirdHand, ,] = dealCards(
         shuffleDeck(CreateDeck()),
         3
       );
@@ -168,53 +168,106 @@ describe("GameState", () => {
         expect(dealState.gameState).toEqual(initialState.gameState);
       });
 
-      test("should check if dealer score is higher after it's turn has finished", () => {
-        // setup
-        const initialState = startGame();
+      describe("After the dealers turn", () => {
+        test("should check if dealer score is higher", () => {
+          // setup
+          const initialState = startGame();
 
-        // act
-        const updatedState = {
-          ...initialState,
-          gameState: "DEALERS_TURN",
-          dealer: {
-            ...initialState.dealer,
-            score: 7,
-          },
-          player: {
-            ...initialState.player,
-            score: 2,
-          },
-        };
-        const action = {
-          type: "checkScore",
-        };
-        const dealState = gameReducer(updatedState, action);
+          // act
+          const updatedState = {
+            ...initialState,
+            gameState: "DEALERS_TURN",
+            dealer: {
+              ...initialState.dealer,
+              score: 7,
+            },
+            player: {
+              ...initialState.player,
+              score: 2,
+            },
+          };
+          const action = {
+            type: "checkScore",
+          };
+          const dealState = gameReducer(updatedState, action);
 
-        expect(dealState.gameState).toEqual("LOSE");
-      });
-      test("should check if player score is higher after the dealer's turn has finished", () => {
-        // setup
-        const initialState = startGame();
+          expect(dealState.gameState).toEqual("LOSE");
+        });
 
-        // act
-        const updatedState = {
-          ...initialState,
-          gameState: "DEALERS_TURN",
-          dealer: {
-            ...initialState.dealer,
-            score: 2,
-          },
-          player: {
-            ...initialState.player,
-            score: 7,
-          },
-        };
-        const action = {
-          type: "checkScore",
-        };
-        const dealState = gameReducer(updatedState, action);
+        test("should check if player score is higher", () => {
+          // setup
+          const initialState = startGame();
 
-        expect(dealState.gameState).toEqual("WIN");
+          // act
+          const updatedState = {
+            ...initialState,
+            gameState: "DEALERS_TURN",
+            dealer: {
+              ...initialState.dealer,
+              score: 2,
+            },
+            player: {
+              ...initialState.player,
+              score: 7,
+            },
+          };
+          const action = {
+            type: "checkScore",
+          };
+          const dealState = gameReducer(updatedState, action);
+
+          expect(dealState.gameState).toEqual("WIN");
+        });
+
+        test("should check if player score is equal", () => {
+          // setup
+          const initialState = startGame();
+
+          // act
+          const updatedState = {
+            ...initialState,
+            gameState: "DEALERS_TURN",
+            dealer: {
+              ...initialState.dealer,
+              score: 7,
+            },
+            player: {
+              ...initialState.player,
+              score: 7,
+            },
+          };
+          const action = {
+            type: "checkScore",
+          };
+          const dealState = gameReducer(updatedState, action);
+
+          expect(dealState.gameState).toEqual("DRAW");
+        });
+
+        test("should check if player score is equal", () => {
+          // setup
+          const initialState = startGame();
+
+          // act
+          const updatedState = {
+            ...initialState,
+            gameState: "DEALERS_TURN",
+            dealer: {
+              ...initialState.dealer,
+              score: 23,
+            },
+            player: {
+              ...initialState.player,
+              score: 7,
+            },
+          };
+          const action = {
+            type: "checkScore",
+          };
+          const dealState = gameReducer(updatedState, action);
+
+          expect(dealState.gameState).toEqual("WIN");
+        });
       });
 
       test("should go bust if the player gets over 21", () => {
@@ -340,5 +393,3 @@ describe("GameState", () => {
     });
   });
 });
-
-// (gameState = predeal), InPlay, draw, lose, win;

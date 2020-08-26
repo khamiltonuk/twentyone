@@ -55,19 +55,11 @@ export function gameReducer(state, action) {
 
       let newGameState = state.gameState;
 
-      if (playerScore > 21) {
+      if (playerScore > 21 || dealerScore === 21) {
         newGameState = "LOSE";
       }
 
-      if (dealerScore > 21) {
-        newGameState = "WIN";
-      }
-
-      if (dealerScore === 21) {
-        newGameState = "LOSE";
-      }
-
-      if (playerScore === 21) {
+      if (dealerScore > 21 || playerScore === 21) {
         newGameState = "WIN";
       }
 
