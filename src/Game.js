@@ -5,6 +5,7 @@ export default function startGame() {
     deck: shuffleDeck(CreateDeck()),
     gameState: "PREDEAL",
     dealer: {
+      name: "Dealer",
       score: 0,
       hand: [],
     },

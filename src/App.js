@@ -33,7 +33,7 @@ function App() {
     <div className="App">
       <p>Dealer's Hand:</p>
       {showCards && <p>Dealer score: {state.dealer.score}</p>}
-      <Hand player={state.dealer} dealer isDealersTurn={showCards} />
+      <Hand player={state.dealer} isDealersTurn={showCards} />
 
       <Hand player={state.player} />
       <p>Your score: {state.player.score}</p>
