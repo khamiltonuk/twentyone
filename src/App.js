@@ -2,6 +2,7 @@ import React, { useReducer, useEffect } from "react";
 import "./App.css";
 import Hand from "./Hand";
 import startGame, { gameReducer } from "./Game";
+import Notifications from "./Notifications";
 
 function App() {
   const [state, dispatch] = useReducer(gameReducer, startGame());
@@ -46,13 +47,12 @@ function App() {
           <button onClick={() => dispatch({ type: "stand" })}>stand</button>
         </>
       )}
-      {state.gameState === "WIN" && <p>You have won </p>}
-      {state.gameState === "LOSE" && <p>You have lost </p>}
-      {state.gameState === "DRAW" && <p>It is a draw</p>}
+
       {isGameOver && (
-        <button onClick={() => dispatch({ type: "startNewGame" })}>
-          Play again
-        </button>
+        <Notifications
+          gameState={state.gameState}
+          startNewGame={() => dispatch({ type: "startNewGame" })}
+        />
       )}
     </div>
   );
