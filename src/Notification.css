@@ -1,0 +1,14 @@
+.notification {
+  visibility: hidden;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: #999;
+  transform: translate(-50%, -50%);
+  padding: 30px 50px;
+  border-radius: 7px;
+}
