@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/twentyone/static/css/main.a7603c93.chunk.css",
+    "main.js": "/twentyone/static/js/main.979bf77a.chunk.js",
+    "main.js.map": "/twentyone/static/js/main.979bf77a.chunk.js.map",
+    "runtime-main.js": "/twentyone/static/js/runtime-main.5759e428.js",
+    "runtime-main.js.map": "/twentyone/static/js/runtime-main.5759e428.js.map",
+    "static/js/2.91eeffb7.chunk.js": "/twentyone/static/js/2.91eeffb7.chunk.js",
+    "static/js/2.91eeffb7.chunk.js.map": "/twentyone/static/js/2.91eeffb7.chunk.js.map",
+    "index.html": "/twentyone/index.html",
+    "precache-manifest.447c3212fee6ee7a6eb7a136d580b9b0.js": "/twentyone/precache-manifest.447c3212fee6ee7a6eb7a136d580b9b0.js",
+    "service-worker.js": "/twentyone/service-worker.js",
+    "static/css/main.a7603c93.chunk.css.map": "/twentyone/static/css/main.a7603c93.chunk.css.map",
+    "static/js/2.91eeffb7.chunk.js.LICENSE.txt": "/twentyone/static/js/2.91eeffb7.chunk.js.LICENSE.txt",
+    "static/media/card.css": "/twentyone/static/media/playingCards.ba6ed8b6.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.5759e428.js",
+    "static/js/2.91eeffb7.chunk.js",
+    "static/css/main.a7603c93.chunk.css",
+    "static/js/main.979bf77a.chunk.js"
+  ]
+}
